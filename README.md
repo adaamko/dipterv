@@ -1,1 +1,1 @@
-# Repository to contain my Master thesis
+# Repository to contain my Master's thesis
