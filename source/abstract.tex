@@ -1,0 +1,54 @@
+%----------------------------------------------------------------------------
+% Abstract in hungarian
+%----------------------------------------------------------------------------
+\chapter*{Kivonat}\addcontentsline{toc}{chapter}{Kivonat}
+A természetes nyelvfeldolgozás a gépi tanulás egy olyan ága, ami természetes nyelv számítógéppel való feldolgozásához 
+elengedhetetlen eszközöket nyújt, és a modern világunkban egyre inkább elterjedté válik a gép és az emberek közötti
+természetes nyelven történõ kommunikációra. Ennek megvalósításához van szükségünk a szöveg tartalmi elemzésére.
+
+A szemantikai elemzés (semantic parsing) célja, hogy nyers szöveges adathoz automatikusan
+készíthessünk szemantikai reprezentációt, azaz modellezzük a szöveg jelentését. Ha a nyelvi
+jelentést fogalmak irányított gráfjaival reprezentáljuk, ezeket pedig a mondat szintaktikai
+szerkezetét reprezentáló fákból kell elõállítanunk, akkor a teljes feladat egyetlen komplex gráftranszformációként
+definiálható.
+
+Egy-egy ilyen elemzõ teljesítménye közvetlenül nem, csak konkrét technológiákon keresztül 
+értékelhetõ, ilyen például a gépi szövegértés (Machine Comprehension) vagy a természetes nyelvi következtetés (Natural Language Inference)
+, illetve tudásbázis populáció (Knowledge Base Population). A mély szemantikai elemzés elkerülhetetlen része a lexikális következtetés (lexical inference),
+melynek során egy-egy szó jelentésének reprezentációjából kiindulva próbáljuk bõvíteni az egy egész frázis vagy mondat jelentését reprezentáló gráfot.
+
+A diplomaterv témája az elõbb említett feladatok megoldása a szemantika elemzõ \texttt{4lang} \cite{Recski:2016d} rendszer segítségével, illetve ennek bõvítése
+megfelelõ inferenciát megvalósító szabályokkal és a gráfok felett értelmezett metrikákkal. A dolgozat magába fogalja a 4lang rendszer lehetõségeinek
+REST API-t megvalósító mikroszolgáltatásokba való csomagolását is. 
+
+A gépi szövegértés feladaton a kidolgozott rendszerünk elõzetes eredményei kis javulást mutatnak a 2018-ban bemutatott state-of-the art rendszerhez \cite{Wang:2018} képest.
+\vfill
+
+%----------------------------------------------------------------------------
+% Abstract in english
+%----------------------------------------------------------------------------
+\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
+
+Natural language processing (NLP) is a branch of machine learning that provides us tools for analyzing raw text automatically. 
+In our modern world human-machine communication has become a widely required task. In order to meet it's requirements, it is inevitable to analyze
+the text's meaning.
+
+The main task of semantic parsing is to automatically build semantic representation from the input, so we can model the meaning
+of raw texts. If we model meaning as directed graphs of concept and we can build them from syntax trees that represents the structure of 
+sentences, then we can define the whole process as one complex graph transformation.
+
+The performance of such analyzers cannot be measured directly, only through concrete tasks, such as Machine comprehension, 
+Natural language inference, or Knowledge base population. Lexical inference has a very strong connection to deep semantic parsing, 
+where we want to augment the graph that represents the meaning of a concept or a sentence by taking each word's graph that models its meaning. 
+
+The main focus of this thesis is to give a strong baseline for the task mentioned above, and to enchahnt existing systems
+with the help of the semantic parser \texttt{4lang} \cite{Recski:2016d}. We believe
+the significance of these experiments lies in its
+demonstration that inference based graph transformations are a powerful method for solving any semantic parsing related task.
+The thesis includes the improving of the 4lang system with further inference based rules and various metrics related to semantic graphs. Furthermore it will demonstrate
+the wrapping the 4lang software in Restful Wep Api microservices for easier usage.   
+
+The biggest result of this paper is that our system's preliminary results suggest that our system achieves a .5
+percentage point improvement on the Machine Comprehension task over the original state-of-the art system. 
+\vfill
+
