@@ -9,6 +9,11 @@
 \usepackage{enumerate}
 \usepackage[thmmarks]{ntheorem}
 \usepackage{graphics}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xytree}
+\usepackage{tikz-dependency}
+\usepackage{float}
 \usepackage{epsfig}
 \usepackage{listings}
 \usepackage{color}
@@ -20,6 +25,7 @@
 \usepackage{setspace}  % Ettol a tablazatok, abrak, labjegyzetek maradnak 1-es sorkozzel!
 \usepackage[hang]{caption}
 \usepackage{hyperref}
+\usepackage{placeins}
 
 %--------------------------------------------------------------------------------------
 % Main variables
@@ -116,6 +122,7 @@
 	declaration,%
 	abstract,%
 	introduction,%
+	semparsing,%
 	chapter1,%
 	chapter2,%
 	chapter3,%
@@ -134,6 +141,12 @@ aboveskip=10pt}
 
 \renewcommand{\captionlabelfont}{\small\bf}
 \renewcommand{\captionfont}{\footnotesize\it}
+\newcommand{\edge}[3]{\texttt{#1}~$\xrightarrow#2$~\texttt{#3}}
+\newcommand{\twoedges}[4]{\texttt{#1}~$\overset{#2}{\underset{#3}{\rightleftharpoons}}$~\texttt{#4}}
+\newcommand{\bin}[3]{
+	\texttt{#2}~$\xleftarrow1$~\texttt{#1}~$\xrightarrow2$~\texttt{#3}}
+
+
 
 %--------------------------------------------------------------------------------------
 % Table of contents and the main text
@@ -147,6 +160,7 @@ aboveskip=10pt}
 \include{declaration}
 \include{abstract}
 \include{introduction}
+\include{semparsing}
 \include{acknowledgement}
 
 %\listoffigures\addcontentsline{toc}{chapter}{?br?k jegyz?ke}
