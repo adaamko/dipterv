@@ -104,51 +104,51 @@ I also found the dataset problematic for our methods, this gave me the intuition
 \textbf{premise}: \textit{European Tour, takes place at Santo da Serra Golf Club.}
 
 \textbf{hyp}: \textit{The European tour can be found at the Santo da Serra Golf Club.}
-\linebreak
+\newline
 
 \textbf{score}: 0.864864864865
 
 \textbf{premise}: \textit{Thorn and the Kal will help prepare the spikes.}
 
 \textbf{hyp}: \textit{Thor and the Kal will help the others prepare the spikes. }
-\linebreak
+\newline
 
 \textbf{score}: 0.851063829787
 
 \textbf{premise}:  \textit{"Heard tell as you boys don't think th' war's clear over yet,"Fenner observed.}
 
 \textbf{hyp}: \textit{Fenner heard in the bar that these boys don't think the war is over.}
-\linebreak
+\newline
 
 \textbf{score}: 0.909090909091
 
 \textbf{premise}: \textit{To many Madeirans who believe the Lady of Monte has carried them through troubled times, the pilgrimage is an obligation.}
 
 \textbf{hyp}: \textit{Because the Lady of Monte is believed to have carried them through troubled times, Madeirans believe the pilgrimage is an obligation.}
-\linebreak
+\newline
 
 Likewise some examples were found where our model didn't find any connection, nevertheless the label was entailment:
 
 \textbf{score}: 0.0
 
-\textbf{premise}: (Emphasis added.)
+\textbf{premise}: \textit{(Emphasis added.)}
 
-\textbf{hyp}: The emphasis was added by the editor.
-\linebreak
-
-\textbf{score}: 0.0
-
-\textbf{premise}: From Beforethewars."
-
-\textbf{hyp}: From before the wars.
-\linebreak
+\textbf{hyp}: \textit{The emphasis was added by the editor.}
+\newline
 
 \textbf{score}: 0.0
 
-\textbf{premise}: Ten years, sir.
+\textbf{premise}: \textit{From Beforethewars."}
 
-\textbf{hyp}: About a decade, sir.
-\linebreak
+\textbf{hyp}: \textit{From before the wars.}
+\newline
+
+\textbf{score}: 0.0
+
+\textbf{premise}: \textit{Ten years, sir.}
+
+\textbf{hyp}: \textit{About a decade, sir.}
+\newline
 
 We want to move towards a goal, where our model can handle simple, trivial situations, that humans find themselves in everyday. Nevertheless we believe that these cases would not be a good base for us to rely on.
 In the next chapter I will give an introduction to the Machine comprehension task defining my baseline. After an introduction to the field of Deep learning is discussed, followed by it's integration to a state-of-the art system, achieving a 0.5 percent improvement.
