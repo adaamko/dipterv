@@ -2,21 +2,21 @@
 \label{chap:future}
 
 \section{Summary}
-This thesis proposes a novel method for recognizing entailment using semantic
+This thesis is focused on semantic parsing using graph based models and transformations. In today's modern state-of-the art systems these kind of explicit knowledge is rarely present. They usually model knowledge with distributional methods. I presented a micro-service built around the 4lang formalism to automate the processing of building graphs. I defined new metrics for measuring support score between concept graphs. In this thesis I evaluated our model through different tasks. I also proposes a novel method for recognizing entailment using semantic
 graphs and apply it to the 2018 Semeval task on Machine
-Comprehension (MC). First, a brief overview of the field of natural language processing is given focusing on real life applications, that are in need of the NLP technologies. Then the topic of computational semantics was discussed in details, focusing on one-two major tasks, like question-answering or information retrieval. After that the formalism of 4lang was presented with examples, and the method of expansion was discussed. After simple yet a strong baseline method was presented for measuring
-textual entailment and its application to the comprehension task, followed by an introduction to the field of deep learning. Finally the last chapter reports the results of applying the baseline method
+Comprehension (MC). First, a brief overview of the field of natural language processing is given focusing on real life applications, that are in need of the NLP technologies. Then the topic of computational semantics was discussed in details, focusing on one-two major tasks, like question-answering or information retrieval. After that the formalism of 4lang was presented with examples, and the method of expansion was discussed. Next I described the micro-service I built over the 4lang system. After that the first challenge, Knowledge base population was introduced, where I explained our pilot experiments for augmenting a knowledge base. After, along with the introduction of the NLI task, I defined metrics for measuring entailment, and the abstract method as an enhancement of the expansion was explained. After simple yet a strong baseline method was given for measuring
+textual entailment and its applications to the comprehension and the natural language inference tasks, followed by an introduction to the field of deep learning. Finally the last chapter reports the results of applying the baseline method
 to the MC task and also of using it as an extra feature in the neural network
-based \texttt{Yuanfudao} system.
+based \texttt{Yuanfudao} system, which was a combined work with G\'emes Kinga.
 
 \section{Future work}
-Our results are quite promising, but
+The results are quite promising, but
 further experiments are required to explore whether our enhancements can
 improve the top-ranking system that also employs
 pretraining and an ensemble of multiple models.
 We also plan to incorporate sentence-level support
 into the system as a more direct application of our
-baseline. 
+baseline. Also, the baseline method could be improved through improving the abstract method with defining new inference rules. If the accuracy of the baseline is improved, we could make an assumption, that our results of applying it to the Yuanfudao system would also improve by a margin.
 
 \subsection{Interpreted Regular Tree Grammar}
 We recently started experimenting with Interpreted Regular Tree Grammars \cite{Koller:2011} (IRTG) that we could also use to construct \textbf{4lang} graphs, since they implement graph transformations, so graph grammars can be used. And by modifying the rules of the grammar, we can also accomplish the \textit{expand} functionalities and we also can define inference rules. These experiments are not yet perfect, but this approach shows great potential. See the phrase \textit{"Ordinary email"} represented in Figure~\ref{fig:irtg}.

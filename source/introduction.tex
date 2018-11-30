@@ -1,14 +1,15 @@
 \chapter{Introduction}
 \label{chap:Introdu}
 In modern systems distributional models are dominant for a semantic parser. In my thesis I use graph based methods and 
-apply it to various tasks, e.g. \textit{Knowledge base population}, \textit{Natural language inference} and \textit{2018 Semeval task on Machine Comprehension} (MC), which was a combined work of Kov\'acs \'Ad\'am and G\'emes Kinga.
+apply it to various tasks, e.g. \textit{Knowledge Base Population (KBP)}, \textit{Natural Language Inference (NLI)} and \textit{2018 Semeval task on Machine Comprehension} (MC), which was a combined work of Kov\'acs \'Ad\'am and G\'emes Kinga.
 I built a REST-API (available at \url{http://hlt.bme.hu/4lang}) 
 around the \textbf{4lang}\cite{Recski:2016} (described in Chapter \ref{chap:semanticparsing}) 
-to present a highly automated process constructing semantic models from raw input, and I introduced simple inference rules and metrics to enchance the graphs and calculate similarities between them.
+to present a highly automated process constructing semantic models from raw input, and I introduced simple inference rules and metrics to enhance the graphs and calculate similarities between them.
 Online demo of the service is available at \url{http://4lang.hlt.bme.hu}. 
-In Chapter \ref{chap:comprehension} I introduce a strong baseline for the task, 
-followed by an enhancement of a state-of-the-art system \cite{Wang:2018} (Chapter \ref{chap:yuanfudao}). 
-In this chapter we discuss the history of the Natural Language Processing (NLP) applications, 
+In Chapter \ref{chap:kbp} I demonstrate simple inference rules to enhance the \textit{WiktData} knowledge base with high accuracy.  
+In Chapter \ref{chap:nli} and \ref{chap:comprehension}, I introduce strong baselines for the NLI and MC tasks, 
+followed by an enhancement of a state-of-the-art system \cite{Wang:2018} (Chapter \ref{chap:comprehension}). 
+In this Chapter we discuss the history of Natural Language Processing (NLP) applications, 
 and briefly define the structure of this paper.
 %----------------------------------------------------------------------------
 \section{Natural Language Processing}
@@ -57,23 +58,23 @@ The typical pipeline is structured as follows:
 \end{figure*}
 %-------------------------------------------------------------
 \section{Objectives}
-The main focus of this study is computational semantics. My research includes building explicit representations of natural language semantics, because in today's state-of-the art systems for popular semantics tasks such as measuring semantic similarity or machine comprehension, they are rarely present. Virtually all systems
+The main focus of this study is computational semantics. My research includes building explicit representations of natural language semantics, because in today's state-of-the art systems for popular semantic tasks such as measuring semantic similarity or machine comprehension, they are rarely present. Virtually all systems
 competing at popular challenges (e.g. \cite{Cer:2017,Collados:2017}) rely on word embeddings as the sole representation of word meaning. Recently \cite{Recski:2016c} has presented a method using graphical representations of natural language text that improved over the state-of-the art on the task of
 measuring semantic similarity of pairs of English words. In this thesis
 I use similar graphs as simple but powerful tools for measuring textual
-entailment. My task includes defining new inference rules and methods for measuring graph similarities, and building an online available service for building graphs highly automatically, giving us a tool for building strong baseline methods. My work was based upon measuring our models through various semantic tasks such as Knowledge base population or the state-of-the art system on the 2018 Semeval Task \textit{Machine comprehension using commonsense knowledge}.
+entailment. My task includes defining new inference rules and methods for measuring graph similarities, and building an online available service for building graphs highly automatically, giving us a tool for building strong baseline methods. My work was based upon measuring our models through various semantic tasks such as Knowledge base Population, Natural language inference or the state-of-the art system on the 2018 Semeval Task \textit{Machine comprehension using commonsense knowledge}.
 
 \section{Results}
 We present a novel method for recognizing entailment using semantic
 graphs and apply it to the tasks:
 \begin{itemize}
-    \item Knowledge base population task (KBP)
-    \item 2017 RepEval \footnote{\url{https://repeval2017.github.io/shared/}} task on Natural language inference (NLI)
+    \item Knowledge Base Population task (KBP)
+    \item 2017 RepEval \footnote{\url{https://repeval2017.github.io/shared/}} task on Natural Language Inference (NLI)
     \item 2018 Semeval task on Machine
     Comprehension (MC).
 \end{itemize}
-First we present a highly automated process of building concept graphs from raw text building a microservice.
-For the tasks I used the automatically built Concept graphs using the REST-API I defined based on the semantic parsing system \texttt{4lang} \cite{Recski:2016d}.
+First we present a highly automated process of building concept graphs from raw text building a micro-service.
+For the tasks, I used the REST-API I defined based on the semantic parsing system \texttt{4lang} \cite{Recski:2016d}, which allowed the automatic construction of concept graphs.
 In the case of the KBP task I present a set of pilot experiments for augmenting a generic, open-domain 
 knowledge base using a graph-based lexical ontology of English and simple
 inference rules yielding millions of new facts with high
@@ -89,10 +90,11 @@ The code of the system is available on Github\footnote{\url{https://github.com/a
 The structure of the paper is the following:
 \begin{itemize}
 	\item \textbf{Chapter \ref{chap:Introdu}} describes the short history and motivation of the NLP applications, it also gives a short summary about the objectives of the thesis, and the results.
-	\item \textbf{Chapter \ref{chap:semanticparsing}} gives a short introduction into the field of semantic parsing, and semantic models in general. It briefly explains the semantic parsing system \textbf{4lang}, and my process of automating the building of concept graphs, and the newly defined inference methods
-	\item \textbf{Chapter \ref{chap:applications}} First describes the Knowledge base population task, and our method of yielding millions of new facts with high
-	accuracy (over 90\% according to manual evaluation). After the baseline approaches to the Natural language inference and Machine Comprehension task is discussed, where they achieved accuracy scores of $67.5\%$ and $68.3\%$, respectively. After that an introduction into deep learning is given, focusing on the NLP tasks. Finally, I present our experiments with the state-of-the art system \textbf{Yuanfudao}. Our preliminary results show a .5 percent improvement over the original system.
-	\item \textbf{Chapter \ref{chap:future}} summarizes our contributions and describes our ongoing/future work. It briefly discusses our plans for the follow-up, that was beyond the scope of this work.
+	\item \textbf{Chapter \ref{chap:semanticparsing}} gives a short introduction into the field of semantic parsing, and semantic models in general. It briefly explains the semantic parsing system \textbf{4lang}, and my process of automating the building of concept graphs.
+	\item \textbf{Chapter \ref{chap:kbp}} describes the Knowledge base population task, and our method of yielding millions of new facts with high accuracy (over 90\% according to manual evaluation).
+	\item \textbf{Chapter \ref{chap:nli}} discusses the newly defined inference methods and the baseline approach to the Natural language inference task, where it achieved accuracy score of $67.5\%$.
+	\item \textbf{Chapter \ref{chap:comprehension}} briefly explains the baseline approach to the MC task, where I used only graph transformation based methods, reaching $68.3\%$ accuracy. After, an introduction into deep learning is given, focusing on the NLP tasks. Finally, I present our experiments with the state-of-the art system \textbf{Yuanfudao}. Our preliminary results show a .5 percent improvement over the original system.
+	\item \textbf{Chapter \ref{chap:future}} summarizes our contributions and describes my ongoing/future work. It briefly discusses my plans for the follow-up, that was beyond the scope of this work.
 \end{itemize}
 
 \section{Division of labour}

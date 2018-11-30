@@ -1,0 +1,154 @@
+\chapter{Natural Language Inference}
+\label{chap:nli}
+
+The NLI task is meant to evaluate language understanding. 
+For most of the NLP tasks we are in big need of understanding entailment. Most of the part however we lacked the resources to measure machine learning methods correctly on this task. Stanford addressed this issue by introducing the Natural Language Inference corpus \footnote{\url{https://nlp.stanford.edu/projects/snli/}}, which is freely available collection of labeled sentence pairs, and were labeled by humans. In this chapter I will present my experiments with the dataset. An example from the dataset can be explained through the sentences \textit{"A soccer game with multiple males" } and 
+\textit{Some men are playing a sport.}, where the task is to determine if the second sentence \textit{entails} the first sentence or not. The first sentence is called the \textit{premise} and the second is \textit{hypothesis}.
+
+\section{Method}
+For the task I define a simple metric between pairs of \texttt{4lang} graphs that
+we intend to use for measuring entailment between a premise and a
+hypothesis. I shall define the degree to which some graph $G_1$
+\textit{supports} another graph $G_2$ as the ratio of edges in $G_2$
+that are also present in $G_1$:
+
+\[ S(G_1, G_2) =\frac{|E(G_1)\cap E(G_2)|}{|E(G_2)|}\]
+
+Two (directed) edges are identical if their source
+and target nodes, and their labels are all identical. I found out that this metric can be used in the MC challenge as well demonstrated accurately in Chapter \ref{chap:comprehension}.
+
+Let's have the following sentences:
+\begin{itemize}
+	\item My poor wife!
+	\item I feel bad for my wife!
+\end{itemize}
+Then we can run our service tool to generate the graphs from the sentences. From these sentences we generate the graphs seen in Figure \ref{fig:mypoor} and Figure \ref{fig:ifeelbad}. From the sentences we can already have an anticipation that these sentences are very similar, so the hypothesis sentence will be an entailment. So if we are ready to make an assumption, that an inference corresponds with the similarity of the graph's edges, than the graphs identify us that this is indeed an entailment. This simple method works for a lot of examples, but if we want higher accuracy, we need to define finer techniques. This is where the definitions of the words come into play. If we want higher accuracy, we need to take word definitions into account, building expanded graphs discussed in Chapter \ref{chap:semanticparsing}. With this method higher similarities between graph whose sentences are also similar can be achieved.
+
+The experiments was run with the default and with the expanded methods as well, setting a threshold value, above what we consider \textit{entailment}. For the default method the results can be seen in Figure \ref{fig:nlidefault} and for the expanded method it can be seen in Figure \ref{fig:nliexpanded}. In the figures the axis y represents how accurate our model is. We defined metrics precision, recal, f1\_score and accuracy. Our task was essentially a binary classification, so f1\_score is a good indicator of our model. The axis x represents the threshold value, above what score we consider \textbf{entailment}. It is the support score that was calculated using the defined metrics. We can see that the expand method gives us better result around 0.4 threshold value.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/ifeelbad}
+	\caption{4lang definition of sentence \textit{"I feel bad for my wife!"}.}
+	\label{fig:ifeelbad}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/nlidefault}
+	\caption{Baseline for the NLI task with the default method}
+	\label{fig:nlidefault}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/nliexpanded}
+	\caption{Baseline for the NLI task with the expanded method}
+	\label{fig:nliexpanded}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/nliabstract}
+	\caption{Baseline for the NLI task with the abstract method}
+	\label{fig:nliabstract}
+\end{figure}
+
+\section{Abstract method}
+We also have some experiments with defining new additional rules added to the \textbf{4lang} parser, that could potentially be giving us a more abstract and simpler definitions than the \textit{expansion} method. Let us look back the sentence "My poor wife" and the expanded graph shown in Figure \ref{fig:mypoorexpanded}. In this example if we look at the edge \textbf{wife $\xrightarrow0$ woman} we can make an assumptions, that native speakers can easily make using simple inference rules \cite{Kovacs:2018}. In our example, within the boundaries of the sentence we can use the concept \textbf{woman} instead of the concept \textbf{wife}. Using this simple rule we can reduce our graph to a simpler definition shown in Figure \ref{fig:mypoorabs}.
+
+\begin{figure*}[h]
+	\centering
+	\includegraphics[scale=0.4]{figures/mypoorabs}
+	\caption{Example of the \textit{"abstract"} method}
+	\label{fig:mypoorabs}
+\end{figure*}
+Let's say we have a node machine in our graph, and it's definition graph, then we can define simple inference rules as follows:
+\begin{itemize}
+	\item If X $\xrightarrow0$ Y is present, then we can use Y instead of the X node.
+	\item Y $\xrightarrow0$ X is present, then we can use Y instead of X node again.
+	\item If we have Y $\xleftarrow1$ Z $\xrightarrow2$ X  both in the definition and the sentence graph, than we can connect every edge from X and Y from the definition graph to the sentence graph.
+\end{itemize}
+For the third rule, let's have the graph shown in Figure \ref{fig:thirdrule}, and say we have the definition of the concept increase in the graph in Figure \ref{fig:thirdrule2}, then by the rule number 3 we can add  additional edges to the price concept shown in Figure \ref{fig:thirdrule3}. Using these rules we also run our method for the dataset achieving results shown in Figure \ref{fig:nliabstract}. The result shows that the method cannot achieve the accuracy of the expand model for the dataset. But I believe that using the already defined simple inference rules, and adding some new ones as well could potentially define a model, where the captured meaning can exceed our results.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/thirdrule1}
+	\caption{4lang graph of "Jonh increased the price"}
+	\label{fig:thirdrule}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/thirdrule2}
+	\caption{4lang graph of the definition of "increase"}
+	\label{fig:thirdrule2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{figures/thirdrule3}
+	\caption{Abstract graph}
+	\label{fig:thirdrule3}
+\end{figure}
+
+Based on early findings I discovered using the abstract rules doesn't gives us better results, so in the MC task we used only \textit{expanded} \texttt{4lang} graphs (see
+Section~\ref{sec:4lang}) for measuring support. 
+
+\section{Problems}
+I also found the dataset problematic for our methods, this gave me the intuition to move to the MC challenge. Few examples from the dataset, where my method yielded high support score, but the prediction was wrong:
+
+\textbf{score}: 0.870967741935
+
+\textbf{premise}: \textit{European Tour, takes place at Santo da Serra Golf Club.}
+
+\textbf{hyp}: \textit{The European tour can be found at the Santo da Serra Golf Club.}
+\linebreak
+
+\textbf{score}: 0.864864864865
+
+\textbf{premise}: \textit{Thorn and the Kal will help prepare the spikes.}
+
+\textbf{hyp}: \textit{Thor and the Kal will help the others prepare the spikes. }
+\linebreak
+
+\textbf{score}: 0.851063829787
+
+\textbf{premise}:  \textit{"Heard tell as you boys don't think th' war's clear over yet,"Fenner observed.}
+
+\textbf{hyp}: \textit{Fenner heard in the bar that these boys don't think the war is over.}
+\linebreak
+
+\textbf{score}: 0.909090909091
+
+\textbf{premise}: \textit{To many Madeirans who believe the Lady of Monte has carried them through troubled times, the pilgrimage is an obligation.}
+
+\textbf{hyp}: \textit{Because the Lady of Monte is believed to have carried them through troubled times, Madeirans believe the pilgrimage is an obligation.}
+\linebreak
+
+Likewise some examples were found where our model didn't find any connection, nevertheless the label was entailment:
+
+\textbf{score}: 0.0
+
+\textbf{premise}: (Emphasis added.)
+
+\textbf{hyp}: The emphasis was added by the editor.
+\linebreak
+
+\textbf{score}: 0.0
+
+\textbf{premise}: From Beforethewars."
+
+\textbf{hyp}: From before the wars.
+\linebreak
+
+\textbf{score}: 0.0
+
+\textbf{premise}: Ten years, sir.
+
+\textbf{hyp}: About a decade, sir.
+\linebreak
+
+We want to move towards a goal, where our model can handle simple, trivial situations, that humans find themselves in everyday. Nevertheless we believe that these cases would not be a good base for us to rely on.
+In the next chapter I will give an introduction to the Machine comprehension task defining my baseline. After an introduction to the field of Deep learning is discussed, followed by it's integration to a state-of-the art system, achieving a 0.5 percent improvement.
