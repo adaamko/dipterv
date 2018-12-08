@@ -1,12 +1,12 @@
 \chapter{Introduction}
 \label{chap:Introdu}
 In modern systems distributional models are dominant for a semantic parser. In my thesis I use graph based methods and 
-apply it to various tasks, e.g. \textit{Knowledge Base Population (KBP)}, \textit{Natural Language Inference (NLI)} and \textit{2018 Semeval task on Machine Comprehension} (MC), which was a combined work of Kov\'acs \'Ad\'am and G\'emes Kinga.
+apply it to various tasks, e.g. \textit{Knowledge Base Population (KBP)}, \textit{Natural Language Inference (NLI)} and \textit{2018 Semeval task on Machine Comprehension} (MC), the last of which was developed in cooperation with Kinga G\'emes and is the subject of a separate publication \cite{Kovacs:2018b}.
 I built a REST-API (available at \url{http://hlt.bme.hu/4lang}) 
 around the \textbf{4lang}\cite{Recski:2016} (described in Chapter \ref{chap:semanticparsing}) 
 to present a highly automated process constructing semantic models from raw input, and I introduced simple inference rules and metrics to enhance the graphs and calculate similarities between them.
 Online demo of the service is available at \url{http://4lang.hlt.bme.hu}. 
-In Chapter \ref{chap:kbp} I demonstrate simple inference rules to enhance the \textit{WiktData} knowledge base with high accuracy.  
+In Chapter \ref{chap:kbp} I demonstrate my research published in \cite{Kovacs:2018}, where I used simple inference rules to enhance the \texttt{WiktData} knowledge base with high accuracy.  
 In Chapter \ref{chap:nli} and \ref{chap:comprehension}, I introduce strong baselines for the NLI and MC tasks, 
 followed by an enhancement of a state-of-the-art system \cite{Wang:2018} (Chapter \ref{chap:comprehension}). 
 In this Chapter we discuss the history of Natural Language Processing (NLP) applications, 
@@ -37,17 +37,17 @@ Building NLP applications requires many levels of analysis.
 The typical pipeline is structured as follows:
 \begin{itemize}
 	\item First we need to tokenize our input text, which means breaking up the text into meaningful elements, especially into words
-	\item After we tokenized our text, we need to perform word analysis called \texttt{morphology}, which is concerned with the structure of words.
-	\item Part of speech assigns words to syntax behavior in a sentence.
+	\item After we tokenized our text, usually we need to perform word analysis called \texttt{morphology}, which is concerned with the structure of words.
+	\item \texttt{Part of speech} assigns words to syntax behavior in a sentence.
 	\item The main task of syntactic parsing is to analyze the grammatical structure of a sentence. Given a set of words, a parser forms units (subjects, verbs, etc..) according to some grammatical formalism.
 	There are two main types of syntactic parsers:
 	\begin{itemize}
-		\item \textit{Constituency parsers} produce trees, that represent the grammatical structure.
-		\item \textit{Dependency parsers} are the more popular nowadays. They represent the structure of a sentence as a dependency tree, which instead of grammatical relations, tries to model the dependencies between words.
+		\item \texttt{Constituency parsers} produce trees, that represent the grammatical structure.
+		\item \texttt{Dependency parsers} are the more popular nowadays. They represent the structure of a sentence as a dependency tree, which instead of grammatical relations, tries to model the dependencies between words.
 	\end{itemize}
 	A parse of the example sentence: \textit{"John has finished the work"} can be seen in Figure \ref{fig:johnfinished}.
 	
-	\item At this point we have various ways to analyze a text, but without modeling its \texttt{meaning}. Semantics is the study of meaning, and semantic parsing is a task to find a representation and assign it to the text. This task will be the main topic of our work.
+	\item At this point we have various ways to analyze a text, but without modeling its \textit{meaning}. Semantics is the study of meaning, and semantic parsing is a task to find a representation and assign it to the text. This task will be the main topic of our work.
 \end{itemize}
 
 \begin{figure*}[h!]
@@ -62,10 +62,10 @@ The main focus of this study is computational semantics. My research includes bu
 competing at popular challenges (e.g. \cite{Cer:2017,Collados:2017}) rely on word embeddings as the sole representation of word meaning. Recently \cite{Recski:2016c} has presented a method using graphical representations of natural language text that improved over the state-of-the art on the task of
 measuring semantic similarity of pairs of English words. In this thesis
 I use similar graphs as simple but powerful tools for measuring textual
-entailment. My task includes defining new inference rules and methods for measuring graph similarities, and building an online available service for building graphs highly automatically, giving us a tool for building strong baseline methods. My work was based upon measuring our models through various semantic tasks such as Knowledge base Population, Natural language inference or the state-of-the art system on the 2018 Semeval Task \textit{Machine comprehension using commonsense knowledge}.
+entailment. My task includes defining new inference rules and methods for measuring graph similarities and augmenting an existing database (the objective of the KBP task). My research also involved building an online available service for constructing graphs highly automatically, giving us a tool for defining strong baseline methods. My work was based upon measuring our models through various semantic tasks such as Knowledge Base Population, Natural Language Inference or the state-of-the art system on the 2018 Semeval Task Machine Comprehension using commonsense knowledge.
 
 \section{Results}
-We present a novel method for recognizing entailment using semantic
+I present a novel method for recognizing entailment using semantic
 graphs and apply it to the tasks:
 \begin{itemize}
     \item Knowledge Base Population task (KBP)
@@ -73,7 +73,7 @@ graphs and apply it to the tasks:
     \item 2018 Semeval task on Machine
     Comprehension (MC).
 \end{itemize}
-First we present a highly automated process of building concept graphs from raw text building a micro-service.
+First I present a highly automated process of building concept graphs from raw text building a micro-service.
 For the tasks, I used the REST-API I defined based on the semantic parsing system \texttt{4lang} \cite{Recski:2016d}, which allowed the automatic construction of concept graphs.
 In the case of the KBP task I present a set of pilot experiments for augmenting a generic, open-domain 
 knowledge base using a graph-based lexical ontology of English and simple
@@ -81,21 +81,21 @@ inference rules yielding millions of new facts with high
 accuracy (over 90\% according to manual evaluation), the result was already presented in \cite{Kovacs:2018}.
 For the NLI and MC task a strong baseline is presented using only concept graphs achieving accuracy scores of $67.5\%$ and $68.3\%$ respectively.
 Followed by an enhancement of a state-of-the art system
-\cite{Wang:2018}, where we proceeded to use the metric underlying our baseline as an additional feature. Preliminary results suggest that these features achieve a .5 percentage point improvement over the original system. This result was the output of the combined work with G\'emes Kinga presented in \cite{Kovacs:2018b}.
+\cite{Wang:2018}, where we proceeded to use the metric underlying our baseline as an additional feature. Preliminary results suggest that these features achieve a .5 percentage point improvement over the original system. This result was the output of the combined work with Kinga G\'emes presented in \cite{Kovacs:2018b}.
 
 \section{References}
-The code of the system is available on Github\footnote{\url{https://github.com/adaamko/4lang}}. The code was implemented by the author of this paper based upon the \textbf{4lang} system.
+The code of the system is available on Github\footnote{\url{https://github.com/adaamko/4lang}}. The code was implemented by the author of this paper based upon the \texttt{4lang} system.
 
 \section{Structure}
 The structure of the paper is the following:
 \begin{itemize}
 	\item \textbf{Chapter \ref{chap:Introdu}} describes the short history and motivation of the NLP applications, it also gives a short summary about the objectives of the thesis, and the results.
-	\item \textbf{Chapter \ref{chap:semanticparsing}} gives a short introduction into the field of semantic parsing, and semantic models in general. It briefly explains the semantic parsing system \textbf{4lang}, and my process of automating the building of concept graphs.
-	\item \textbf{Chapter \ref{chap:kbp}} describes the Knowledge base population task, and our method of yielding millions of new facts with high accuracy (over 90\% according to manual evaluation).
-	\item \textbf{Chapter \ref{chap:nli}} discusses the newly defined inference methods and the baseline approach to the Natural language inference task, where it achieved accuracy score of $67.5\%$.
-	\item \textbf{Chapter \ref{chap:comprehension}} briefly explains the baseline approach to the MC task, where I used only graph transformation based methods, reaching $68.3\%$ accuracy. After, an introduction into deep learning is given, focusing on the NLP tasks. Finally, I present our experiments with the state-of-the art system \textbf{Yuanfudao}. Our preliminary results show a .5 percent improvement over the original system.
-	\item \textbf{Chapter \ref{chap:future}} summarizes our contributions and describes my ongoing/future work. It briefly discusses my plans for the follow-up, that was beyond the scope of this work.
+	\item \textbf{Chapter \ref{chap:semanticparsing}} gives a short introduction into the field of semantic parsing, and semantic models in general. It briefly explains the semantic parsing system \texttt{4lang}, and my process of automating the building of concept graphs.
+	\item \textbf{Chapter \ref{chap:kbp}} describes the KBP task, and our method of yielding millions of new facts with high accuracy (over 90\% according to manual evaluation).
+	\item \textbf{Chapter \ref{chap:nli}} discusses the newly defined inference methods and the baseline approach to the NLI task, where it achieved accuracy score of $67.5\%$.
+	\item \textbf{Chapter \ref{chap:comprehension}} briefly explains the baseline approach to the MC task, where I used only graph transformation based methods, reaching $68.3\%$ accuracy. After, an introduction into deep learning is given, focusing on the NLP tasks. Finally, I present our experiments with the state-of-the art system \texttt{Yuanfudao}. Our preliminary results show a .5 percent improvement over the original system.
+	\item \textbf{Chapter \ref{chap:future}} summarizes the contributions and describes my ongoing/future work. It briefly discusses my plans for the follow-up, that was beyond the scope of this work.
 \end{itemize}
 
 \section{Division of labour}
-This project was a product of the combined work of Kov\'acs \'Ad\'am and G\'emes Kinga. Kov\'acs \'Ad\'am was responsible for building the service to automate the process of building concept graphs (online demo available at \url{http://4lang.hlt.bme.hu}), and was mostly working on the baseline methods and defining new inference rules and metrics for the given tasks. G\'emes Kinga's main work involved applying the baseline to the state-of-the-art system Yuanfudao \cite{Wang:2018}\footnote{\url{https://github.com/GKingA/commonsense-rc}} and experiments with IRTGs briefly described in Chapter \ref{chap:future}\footnote{\url{https://github.com/GKingA/irtg}}.
+My contribution includes the building of the online available REST API, based upon the \texttt{4lang} system. Also defining new inference rules and metrics, and using them to construct strong baselines for popular tasks e.g. KBP, NLI, MC. Applying my baseline method into a state-of-the art system \texttt{Yuanfudao}\cite{Wang:2018}\footnote{\url{https://github.com/GKingA/commonsense-rc}} on the MC task was a combined work with Kinga G\'emes.
