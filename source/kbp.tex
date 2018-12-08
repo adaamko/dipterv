@@ -1,37 +1,37 @@
 \chapter{Knowledge Base Population}
 \label{chap:kbp}
 
-Since my methods can only be evaluated through well defined tasks, I chose multiple challenges where measuring the accuracy of my models can be verified. This chapter includes the task of Knowledge base population which goal is to discover facts about entities and augment a knowledge base with these facts. In this challenge we achieved a high accuracy of generating millions of new facts only using simple inference rules. After that, in the next Chapter, I will discuss my experiments with Natural language inference, where I will introduce my method of measuring support score of the concept graphs, and defining new inference rules to enhance the expansion method, generating a more abstract version. Next my baseline to the NLI task is discussed, followed by the review of my problems with the \textit{MultiNLI} dataset \footnote{\url{https://www.nyu.edu/projects/bowman/multinli/}}. Finally I explain the machine comprehension challenge, and I will introduce my baseline method for solving it, using my micro-service for automatically building concept graphs. After that I will present how we made it possible to integrate it to an already working system that uses deep learning algorithms.
+As I previously mentioned, semantic parsers cannot be evaluated directly, only through well defined tasks, so I needed to chose multiple challenges where measuring the accuracy of my models can be verified. This chapter includes my experiments with the task of Knowledge Base Population, which goal is to discover facts about entities and augment a knowledge base with these facts. On this challenge my methods achieved a high accuracy of generating millions of new facts only using simple inference rules. This will be the main focus of this chapter. After that, in the next chapter, I will discuss my experiments with natural language inference, where I will introduce my method of measuring support score of the concept graphs, and defining new inference rules to enhance the expansion method, generating a substituted form. Next my baseline to the NLI task is discussed, followed by the review of my problems with the \texttt{MultiNLI} dataset\footnote{\url{https://www.nyu.edu/projects/bowman/multinli/}}. Finally I explain the MC challenge, and I will introduce my baseline method for solving it, using my micro-service for automatically building concept graphs. After that I will present how we made it possible to integrate it to an already working system that uses deep learning algorithms.
 
 %----------------------------------------------------------------------------
 \section{Introduction} 
-The first task I chose to evaluate my models on was the Knowledge base population challenge. Here I present a set of pilot experiments for augmenting a generic, open-domain 
+The first task I chose to evaluate my models on was the KBP challenge. Here I present a set of pilot experiments for augmenting a generic, open-domain 
 knowledge base using a graph-based lexical ontology of English and simple
-inference rules. The WikiData knowledge-base contains facts encoded as relation
+inference rules. The \texttt{WikiData} knowledge-base contains facts encoded as relation
 triplets, such as author(George Orwell, 1984), based on which naive
 speakers can easily establish additional facts such as that George Orwell is a
 person and 1984 is some written work, most likely a book. To automate this type
 of inference we need models of lexical semantics that are more explicit than
-the distributional models commonly used in computational semantics. For this I used my REST-API built on the \textbf{4lang} formalism to automatically build concept graphs. The representation of "author" will likely contain edges
+the distributional models commonly used in computational semantics. For this I used my REST-API built on the \texttt{4lang} formalism to automatically build concept graphs. The representation of \textit{"author"} will likely contain edges
 corresponding to facts such as \texttt{IS\_A(author, person)} and
 \texttt{write(author, book)}.
 I define simple templates that use these representations for inference over
-WiktData facts. My method yields millions of new facts with high
+\texttt{WiktData} facts. My method yields millions of new facts with high
 accuracy (over 90\% according to manual evaluation)
 
 \section{Background}
 \texttt{WikiData}\footnote{\url{https://www.wikidata.org/}}
 is a public domain knowledge base containing
 attribute-value type information about more than 30 million entities.
-For each entity, WikiData contains pairs of \textit{properties}
+For each entity, \texttt{WikiData} contains pairs of \textit{properties}
 (attribute) and \textit{values}, which may contain pointers to other
 entities. In case of the entity \texttt{1984}, the value of the property
 \texttt{author} is \texttt{George\_Orwell}. An alternative
 representation of the dataset is in the form of relational triplets,
 this would represent the above fact as a single binary relation
-\texttt{author(George\_Orwell, 1984)}. I use This latter representation
-when processing WikiData and use the \textbf{4lang} service to process this set of
-definition graphs when performing inference over WikiData triplets. These triplets can be generated from the \textit{json} format of the dataset, which is online accessible. The first step I had to take was to preprocess the raw dataset to obtain the triplets format. For this I used python language as well.
+\texttt{author(George\_Orwell, 1984)}. I use this latter representation
+when processing \texttt{WikiData} and use the \texttt{4lang} service to process this set of
+definition graphs when performing inference over \texttt{WikiData} triplets. These triplets can be generated from the \textit{json} format of the dataset, which is online accessible. The first step I had to take was to preprocess the raw dataset to obtain the triplets format. For this I used \texttt{python} language as well.
 
 \section{Method}
 Two simple patterns were implemented for performing inference using
@@ -64,7 +64,7 @@ to discard all \texttt{WikiData} relations whose \texttt{4lang}
 definition contains more than one outgoing 0-edge.
 
 Other issues are caused by meaningless or erroneous 0-connections in 4lang graphs
-that are ultimately limitations of the method used by the \texttt{dict\_to\_4lang}
+that are ultimately limitations of the method used by REST API and the \texttt{dict\_to\_4lang}
 system to build these graphs from natural language definitions. The process involves parsing
 the definitions with a state-of-the-art dependency parser and mapping grammatical
 relations between pairs of words to configurations of \texttt{4lang} edges.
@@ -72,14 +72,14 @@ In case of a definition such as \textbf{flag:}
 \textit{piece of cloth with a coloured pattern or picture on it that represents
 	a country}, the definition graph will contain the edge
 \texttt{flag} $\xrightarrow0$ \texttt{piece}. This information
-is obviously not informative (to say the least), we consider it an error
+is obviously not informative (to say the least), I consider it an error
 when evaluating my system.
 To make a correct inference about flags similar to those in our previous example,
 a system would need to learn something along the lines of
 ``\textit{piece of X} $\xrightarrow0$ \texttt{X}'', which is beyond the scope of
 the current thesis. 
-A final common source of false facts concerns words that are used in WikiData
-in a very different sense than the one defined by the Longman dictionary, the source
+A final common source of false facts concerns words that are used in \texttt{WikiData}
+in a very different sense than the one defined by the \texttt{Longman} dictionary, the source
 of \texttt{4lang} definitions. One example is the outdated definition of
 \texttt{developer}: \textit{a person or company that makes money by buying land
 	and then building houses, factories etc on it}, which causes our method to erroneously
@@ -88,24 +88,24 @@ infer that developers are companies.
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.5]{figures/author.jpg}
-	\caption{4lang definition of \texttt{author}.}
+	\caption{\texttt{4lang} definition of \texttt{author}.}
 	\label{fig:author}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.5]{figures/orwell_inf.jpg}
-	\caption{4lang graph produced from WikiData triplet
+	\caption{\texttt{4lang} graph produced from \texttt{WikiData} triplet
 		\texttt{author(George\_Orwell, 1984)}.}
 	\label{fig:orwell_inf}
 \end{figure}
 
 \subsection{Evaluation}
 
-In the WikiData dataset first I counted the triplets. I found 86.3 million triplets using 893 unique predicates.
+In the \texttt{WikiData} dataset first I counted the triplets. I found 86.3 million triplets using 893 unique predicates.
 I started our experiment by preprocessing WikiData to discard fragmentary data
 (triplets with empty positions) and multi-word predicates that do not lend themselves
-to the simple methods described in the previous section. This was made by python code, and is available on github \footnote{\url{https://github.com/adaamko/4lang}}.
+to the simple methods described in the previous section. This was made by python code, and is available on github\footnote{\url{https://github.com/adaamko/4lang}}.
 After these steps the dataset consisted of 195 predicates and 19.6 million triplets,
 out of which the first inference pattern was applicable to 108 predicates
 (covering 9.2 million triplets), the second to 27 predicates (covering 1.4 million triplets).

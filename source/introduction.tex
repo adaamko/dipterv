@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{chap:Introdu}
 In modern systems distributional models are dominant for a semantic parser. In my thesis I use graph based methods and 
-apply it to various tasks, e.g. \textit{Knowledge Base Population (KBP)}, \textit{Natural Language Inference (NLI)} and \textit{2018 Semeval task on Machine Comprehension} (MC), the last of which was developed in cooperation with Kinga G\'emes and is the subject of a separate publication \cite{Kovacs:2018b}.
+apply it to various tasks, e.g. \textit{Knowledge Base Population}(KBP), \textit{Natural Language Inference} (NLI) and \textit{2018 Semeval task on Machine Comprehension} (MC), the last of which was developed in cooperation with Kinga G\'emes and is the subject of a separate publication \cite{Kovacs:2018b}.
 I built a REST-API (available at \url{http://hlt.bme.hu/4lang}) 
 around the \textbf{4lang}\cite{Recski:2016} (described in Chapter \ref{chap:semanticparsing}) 
 to present a highly automated process constructing semantic models from raw input, and I introduced simple inference rules and metrics to enhance the graphs and calculate similarities between them.
@@ -38,12 +38,12 @@ The typical pipeline is structured as follows:
 \begin{itemize}
 	\item First we need to tokenize our input text, which means breaking up the text into meaningful elements, especially into words
 	\item After we tokenized our text, usually we need to perform word analysis called \texttt{morphology}, which is concerned with the structure of words.
-	\item \texttt{Part of speech} assigns words to syntax behavior in a sentence.
+	\item \textbf{Part of speech} assigns words to syntax behavior in a sentence.
 	\item The main task of syntactic parsing is to analyze the grammatical structure of a sentence. Given a set of words, a parser forms units (subjects, verbs, etc..) according to some grammatical formalism.
 	There are two main types of syntactic parsers:
 	\begin{itemize}
-		\item \texttt{Constituency parsers} produce trees, that represent the grammatical structure.
-		\item \texttt{Dependency parsers} are the more popular nowadays. They represent the structure of a sentence as a dependency tree, which instead of grammatical relations, tries to model the dependencies between words.
+		\item \textbf{Constituency parsers} produce trees, that represent the grammatical structure.
+		\item \textbf{Dependency parsers} are the more popular nowadays. They represent the structure of a sentence as a dependency tree, which instead of grammatical relations, tries to model the dependencies between words.
 	\end{itemize}
 	A parse of the example sentence: \textit{"John has finished the work"} can be seen in Figure \ref{fig:johnfinished}.
 	
